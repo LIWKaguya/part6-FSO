@@ -7,8 +7,7 @@ const Anecdote = ({anecdote}) => {
     const dispatch = useDispatch()
     const vote = (anecdote) => {
         dispatch(likeAnecdote(anecdote.id))
-        dispatch(createNotification(`you voted '${anecdote.content}'`))
-        setTimeout(() => dispatch(createNotification('')),5000)
+        dispatch(createNotification(`you voted '${anecdote.content}'`, 5000))
     }
     return (
         <div>

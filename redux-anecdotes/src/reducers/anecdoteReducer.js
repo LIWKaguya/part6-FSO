@@ -32,8 +32,7 @@ export const createAnecdote = (anec) => {
       type: 'CREATE',
       data: newAnec
     })
-    dispatch(createNotification(`a new anecdotes '${newAnec.content}' has been created`))
-    setTimeout(() => dispatch(createNotification('')),5000)
+    dispatch(createNotification(`a new anecdote '${newAnec.content}' has been created`, 5000))
   }
 }
 
