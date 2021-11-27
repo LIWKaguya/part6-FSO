@@ -16,7 +16,7 @@ const App = () => {
     event.target.anecdote.value = ''
     dispatch(createAnecdote(anec))
   }
-
+   
   return (
     <div>
       <h2>Anecdotes</h2>
