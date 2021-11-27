@@ -24,7 +24,10 @@ const Anecdote = ({anecdote}) => {
 }
 
 const AnecdoteList = () => {
-    const anecdotes = useSelector(state => state.anecdotes)
+    const anecdotes = useSelector(({filterWord, anecdotes}) => {
+      if(filterWord === null) return anecdotes
+      return anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filterWord.toLowerCase()))
+    })
     return (
         <>
         {anecdotes.sort((mine, yours) => yours.votes - mine.votes) 
