@@ -4,9 +4,7 @@ import { createNotification } from './notificationReducer'
 const anecdoteReducer = (state = [], action) => {
   switch(action.type) {
     case 'LIKE':
-      let votedAnecdote = state.find(anecdote => anecdote.id === action.data.id)
-      votedAnecdote = {...votedAnecdote, votes: votedAnecdote.votes+1}
-      return state.map(anecdote => anecdote.id !== votedAnecdote.id ? anecdote: votedAnecdote)
+      return state.map(anecdote => anecdote.id !== action.data.id ? anecdote : action.data)
     case 'CREATE':
       return [...state, action.data]
     case 'INIT_ANEC':
@@ -17,11 +15,13 @@ const anecdoteReducer = (state = [], action) => {
 }
 
 export const likeAnecdote = (id) => {
-  return {
-    type: 'LIKE',
-    data: {
-      id: id
-    }
+  return async dispatch => {
+    const needAnec = await anecdoteService.needAnec({id})
+    const updatedAnec = await anecdoteService.likeVotes(needAnec)
+    dispatch({
+      type: 'LIKE',
+      data: updatedAnec
+    })
   }
 }
 
