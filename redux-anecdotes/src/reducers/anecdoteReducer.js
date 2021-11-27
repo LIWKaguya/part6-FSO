@@ -1,3 +1,6 @@
+import anecdoteService from '../services/anecdotes'
+import { createNotification } from './notificationReducer'
+
 const anecdoteReducer = (state = [], action) => {
   switch(action.type) {
     case 'LIKE':
@@ -23,16 +26,24 @@ export const likeAnecdote = (id) => {
 }
 
 export const createAnecdote = (anec) => {
-  return {
-    type: 'CREATE',
-    data: anec
+  return async dispatch => {
+    const newAnec = await anecdoteService.createNew(anec)
+    dispatch({
+      type: 'CREATE',
+      data: newAnec
+    })
+    dispatch(createNotification(`a new anecdotes '${newAnec.content}' has been created`))
+    setTimeout(() => dispatch(createNotification('')),5000)
   }
 }
 
-export const initAnecdotes = (anecdotes) => {
-  return {
-    type: 'INIT_ANEC',
-    data: anecdotes
+export const initAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INIT_ANEC',
+      data: anecdotes
+    })
   }
 }
 
