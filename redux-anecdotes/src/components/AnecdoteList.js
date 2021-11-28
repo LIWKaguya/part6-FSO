@@ -27,7 +27,7 @@ const AnecdoteList = (props) => {
         <>
         {props.anecdotes.sort((mine, yours) => yours.votes - mine.votes) 
         .map(anecdote =>
-            <Anecdote anecdote={anecdote} likeAnecdote={likeAnecdote} createNotification={createNotification} key={anecdote.id}/>
+            <Anecdote anecdote={anecdote} likeAnecdote={likeAnecdote} createNotification={createNotification} key={anecdote.id} />
             )}
         </>
     )
@@ -35,7 +35,7 @@ const AnecdoteList = (props) => {
 
 const mapStateToProps = (state) => {
     if(state.filterWord === null) return {anecdotes : state.anecdotes}
-    return {anecdotes : state.anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(state.filterWord.toLowerCase())) }
+    return {anecdotes : state.anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(state.filterWord.toLowerCase()))}
 }
 
 const mapDispatchToProps = {
